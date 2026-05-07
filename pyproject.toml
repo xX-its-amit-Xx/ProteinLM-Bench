@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "proteinlm-bench"
+version = "0.1.0"
+description = "Reproducible benchmarking of protein language models on mutation effect prediction."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [
+    { name = "ProteinLM-Bench contributors" },
+]
+keywords = [
+    "protein-language-models",
+    "mutation-effect-prediction",
+    "deep-mutational-scanning",
+    "benchmarking",
+    "bioinformatics",
+    "machine-learning",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy>=1.23",
+    "pandas>=1.5",
+    "scipy>=1.10",
+    "scikit-learn>=1.2",
+    "torch>=2.0",
+    "matplotlib>=3.6",
+    "seaborn>=0.12",
+    "pyyaml>=6.0",
+    "tqdm>=4.64",
+]
+
+[project.optional-dependencies]
+plm = ["transformers>=4.30", "tokenizers>=0.13"]
+viz = ["umap-learn>=0.5"]
+dev = ["pytest>=7.0", "pytest-cov>=4.0"]
+all = [
+    "transformers>=4.30",
+    "tokenizers>=0.13",
+    "umap-learn>=0.5",
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+]
+
+[project.urls]
+Repository = "https://github.com/your-org/proteinlm-bench"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"

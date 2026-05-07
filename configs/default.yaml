@@ -1,0 +1,70 @@
+# Default benchmark configuration for ProteinLM-Bench.
+#
+# Each section is consumed by scripts/run_benchmark.py. The CLI flag
+# `--mock-embeddings` overrides `embeddings.backend` so the pipeline is
+# runnable end-to-end on CPU without downloading pretrained weights.
+
+experiment:
+  name: "default_run"
+  seed: 0
+  output_dir: "outputs/default_run"
+
+data:
+  csv_path: "data/example_mutations.csv"
+  # Required columns:
+  #   protein_id, wildtype_sequence, mutation_code, mutant_sequence, fitness
+  # `mutation_code` uses standard notation (e.g. "A42G") and supports
+  # multi-mutants joined by ":" (e.g. "A42G:T15S").
+  test_size: 0.25
+  group_by_protein: false   # set true to enforce protein-level splits
+
+embeddings:
+  # backend: one of {"mock", "huggingface"}
+  backend: "huggingface"
+  model_name: "facebook/esm2_t6_8M_UR50D"
+  # Alternative supported model: "Rostlab/prot_bert"
+  pooling: "mean"           # one of {"mean", "cls", "mut_site"}
+  device: "cpu"
+  batch_size: 4
+  max_length: 1024
+  cache_dir: "embeddings_cache"
+
+models:
+  # Each entry trains an independent downstream regressor on top of
+  # the same embeddings. Set `enabled: false` to skip a model.
+  ridge:
+    enabled: true
+    alpha: 1.0
+  random_forest:
+    enabled: true
+    n_estimators: 200
+    max_depth: null
+  mlp:
+    enabled: true
+    hidden_dims: [128, 64]
+    dropout: 0.1
+    lr: 0.001
+    weight_decay: 0.0001
+    epochs: 50
+    batch_size: 32
+
+evaluation:
+  metrics: ["spearman", "pearson", "rmse", "mae", "top_k_enrichment"]
+  top_k_fraction: 0.1       # top 10% used for enrichment metric
+  bootstrap_samples: 200    # set to 0 to disable bootstrap CIs
+  bootstrap_ci: 0.95
+  ensemble_size: 5          # used for ensemble-variance uncertainty
+
+epistasis:
+  enabled: true
+  # Variants whose absolute residual exceeds this many SDs of the
+  # additive-expectation residual distribution are flagged as
+  # high-error epistatic outliers.
+  outlier_sd_threshold: 2.0
+
+plotting:
+  enabled: true
+  formats: ["png"]
+  dpi: 150
+  umap_n_neighbors: 15
+  umap_min_dist: 0.1

@@ -1,0 +1,64 @@
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+pip-wheel-metadata/
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Unit test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+.cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Project artifacts
+results/
+runs/
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+embeddings_cache/
+wandb/
+mlruns/
+
+# Plots produced by benchmark
+outputs/
+figures/
+
+# Data — keep example CSV but ignore large downloads
+data/raw/
+data/external/
+data/processed/
+*.fasta
+*.fa
+*.h5
+*.hdf5
+
+# OS
+Thumbs.db

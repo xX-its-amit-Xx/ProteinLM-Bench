@@ -1,0 +1,27 @@
+# Core scientific stack
+numpy>=1.23
+pandas>=1.5
+scipy>=1.10
+scikit-learn>=1.2
+
+# Deep learning
+torch>=2.0
+
+# Plotting
+matplotlib>=3.6
+seaborn>=0.12
+
+# Dimensionality reduction (optional but used in plotting)
+umap-learn>=0.5
+
+# Config + utilities
+pyyaml>=6.0
+tqdm>=4.64
+
+# Optional: HuggingFace protein language models.
+# These are NOT required to run the benchmark in --mock-embeddings mode.
+transformers>=4.30
+tokenizers>=0.13
+
+# Testing
+pytest>=7.0
